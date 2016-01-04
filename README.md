@@ -1,7 +1,8 @@
 One Ring To Rule Them All
 =========================
 
-From now on, all side projects will be hosted on the same DigitalOcean droplet:
+From now on, all of my side projects will be hosted on the same
+DigitalOcean droplet:
 
   pet-projects
   159.203.41.223
@@ -9,7 +10,8 @@ From now on, all side projects will be hosted on the same DigitalOcean droplet:
   Ubuntu 14.04.3 x64
   Toronto 1
 
-The server uses nginx as a reverse proxy
+The server uses nginx as a reverse proxy, so that any type of app can
+be deployed and run on one server.
 
 
 ADDING A NEW APP

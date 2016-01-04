@@ -31,6 +31,12 @@ Instructions for adding a new project to the droplet:
 2) Get a database plan
     eg. Login to mongolab, create a new mongodb.
 
-3) SSH in and create a config file under /home/deploy/config/PROJECT/production.json
+3) Configure DNS for domain
+    We need to point the domain to DigitalOcean (3 nameservers, ns1-3.digitalocean.com), as well as add the domains to DigitalOcean: https://cloud.digitalocean.com/networking#actions-domains
+    More info: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean
+
+4) SSH in and create a config file under /home/deploy/config/PROJECT/production.json
+
+
 
 4) Create a flightplan for the project

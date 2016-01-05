@@ -15,6 +15,10 @@ steps taken.
 
 5) Ensure PM2 is installed globally for the deploy user
 
+6) Ensure build-essential is installed.
+    `$ sudo apt-get install build-essential`
+    This installs Make and other required tools for NPM and Node.
+
 General info on multi-hosting:
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04
 
@@ -36,7 +40,7 @@ Instructions for adding a new project to the droplet:
     More info: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean
 
 4) SSH in and create a config file under /home/deploy/config/PROJECT/production.json
-
-
+    You can then specify this path in your project, when process.env.NODE_ENV is production.
 
 4) Create a flightplan for the project
+    Example: https://github.com/joshwcomeau/words-with-strangers-redux/blob/master/flightplan.js

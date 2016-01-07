@@ -1,31 +1,43 @@
-In case I ever need to set up a new One Ring droplet, I'm recording all
-steps taken.
+Table of Contents
+=================
 
-1) Purchase a droplet. Ubuntu 14.04 (or whatever's current in the future)
-2) Add your SSH key to it, and access it with `ssh root@dropletIP`
-3) Create a new user on the server to do deploy stuff.
-    Call it `deploy` for convention.
-    More info: https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04
-3) Install Node.js with NVM (https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps)
-    Use a more recent version! 0.30+
-    Copy a global version to /usr/local/bin/node
-4) Install nginx
-    Be sure to set server_names_hash_bucket_size to 64.
-    More info: https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-12-04-lts-precise-pangolin
-
-5) Ensure PM2 is installed globally for the deploy user
-
-6) Ensure build-essential is installed.
-    `$ sudo apt-get install build-essential`
-    This installs Make and other required tools for NPM and Node.
-
-General info on multi-hosting:
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04
+A. Setting up the Pet Project server
+B. Adding new pet projects to the server
 
 
-#### That's about it for the overall droplet!
+----------------
 
-Instructions for adding a new project to the droplet:
+### A. Setting up the Pet Project server
+
+  1) Purchase a droplet. Ubuntu 14.04 (or whatever's current in the future)
+  2) Add your SSH key to it, and access it with `ssh root@dropletIP`
+  3) Create a new user on the server to do deploy stuff.
+      Call it `deploy` for convention.
+      More info: https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04
+  3) Install Node.js with NVM (https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps)
+      Use a more recent version! 0.30+
+      Copy a global version to /usr/local/bin/node
+  4) Install nginx
+      Be sure to set server_names_hash_bucket_size to 64.
+      More info: https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-12-04-lts-precise-pangolin
+  5) Add NODE_ENV
+      All projects running on the server will need a NODE_ENV variable to be set.
+      open up .bashrc in the root directory with nano, and add:
+      `export NODE_ENV=production`
+      You can see that your info is saved by typing `printenv` in the console.
+  5) Ensure PM2 is installed globally for the deploy user
+  6) Ensure build-essential is installed.
+      `$ sudo apt-get install build-essential`
+      This installs Make and other required tools for NPM and Node.
+
+  General info on multi-hosting:
+  https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04
+
+
+
+
+
+### B. Adding new pet projects to the server
 
 1) Set up a reverse proxy with nginx
     Make a file for the new domain (eg. nano /etc/nginx/conf.d/requestkittens.com.conf)
@@ -42,5 +54,16 @@ Instructions for adding a new project to the droplet:
 4) SSH in and create a config file under /home/deploy/config/PROJECT/production.json
     You can then specify this path in your project, when process.env.NODE_ENV is production.
 
+5) While you're there, create a directory under /home/deploy/PROJECT.
+
 4) Create a flightplan for the project
     Example: https://github.com/joshwcomeau/words-with-strangers-redux/blob/master/flightplan.js
+
+5) Set up an initialize.js file that loads environment variables depending on context.
+    Example:
+      let ENV_CONFIG = process.env.NODE_ENV === 'production'
+      ? '/home/deploy/config/wws/production.json'
+      : `./server/config/${process.env.NODE_ENV}.json`;
+    Full example: https://github.com/joshwcomeau/words-with-strangers-redux/blob/master/server/initialize.js
+
+6) Set up logging

@@ -24,22 +24,32 @@ B. Adding new pet projects to the server
       [More info](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps)
 
   5) Install nginx
-      Be sure to set server_names_hash_bucket_size to 64.
-      [More info](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-12-04-lts-precise-pangolin)
+  - Follow the [basic install guide](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-12-04-lts-precise-pangolin)
+  - Add a new site to /etc/nginx/sites-available. Examples of the files can be
+  found in this repo.
+  - Create a symlink in sites-enabled.
+  - Remove the symlink to `default` from sites-enabled.
+  `sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default`
+  - in /etc/nginx/nginx.conf, set the access logs and error logs to /home/deploy/access.log and error.log.
+  - In /etc/nginx/nginx.conf, set `server_names_hash_bucket_size` to 64.
+  Should be commented out, just gotta uncomment it.
 
-  5) Add NODE_ENV
+  - **TROUBLESHOOTING**: You can use the super helpful `nginx -t` command to see what's going wrong, if nginx can't start.
+
+
+  6) Add NODE_ENV
       All projects running on the server will need a NODE_ENV variable to be set.
       open up .bashrc in the root directory with nano, and add:
       `export NODE_ENV=production`
       You can see that your info is saved by typing `printenv` in the console.
 
-  5) Ensure PM2 is installed globally for the deploy user
+  7) Ensure PM2 is installed globally for the deploy user
 
-  6) Ensure build-essential is installed.
-      `$ sudo apt-get install build-essential`
+  8) Ensure build-essential is installed.
+      `sudo apt-get install build-essential`
       This installs Make and other required tools for NPM and Node.
 
-  7) Make sure we have some swap space!
+  9) Make sure we have some swap space!
       This allows Ubuntu to use hard disk space when Node runs out of memory.
       This has happened to me on deploy (Stupid Kerberos!!)
       First, check to see how much swap space is available with `free -m`
@@ -50,7 +60,8 @@ B. Adding new pet projects to the server
       C. sudo mkswap /swapfile            // Mark the file as a swap space
       D. sudo swapon /swapfile            // Enable the swap
 
-  [General info on multi-hosting](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04)
+  ##### Helpful Links:
+  [General info on node applications](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04)
 
 
 

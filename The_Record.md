@@ -30,7 +30,8 @@ B. Adding new pet projects to the server
   - Create a symlink in sites-enabled.
   - Remove the symlink to `default` from sites-enabled.
   `sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default`
-  - in /etc/nginx/nginx.conf, set the access logs and error logs to /home/deploy/access.log and error.log.
+  - in /etc/nginx/nginx.conf, set the access logs and error logs to
+  /home/deploy/nginx.access.log and /home/deploy/nginx.error.log.
   - In /etc/nginx/nginx.conf, set `server_names_hash_bucket_size` to 64.
   Should be commented out, just gotta uncomment it.
 
@@ -55,10 +56,10 @@ B. Adding new pet projects to the server
       First, check to see how much swap space is available with `free -m`
       If it's <4000, run these commands:
 
-      A. sudo fallocate -l 4G /swapfile   // Create a 4 gigabyte swapfile
-      B. sudo chmod 600 /swapfile         // Restrict access to root
-      C. sudo mkswap /swapfile            // Mark the file as a swap space
-      D. sudo swapon /swapfile            // Enable the swap
+    A. sudo fallocate -l 4G /swapfile   // Create a 4 gigabyte swapfile
+    B. sudo chmod 600 /swapfile         // Restrict access to root
+    C. sudo mkswap /swapfile            // Mark the file as a swap space
+    D. sudo swapon /swapfile            // Enable the swap
 
   ##### Helpful Links:
   [General info on node applications](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04)

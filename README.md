@@ -11,7 +11,11 @@ DigitalOcean droplet:
   Toronto 1
 
 The server uses nginx as a reverse proxy, so that any type of app can
-be deployed and run on one server.
+be deployed and run on one server. Using PM2 for Node apps.
+
+Username is `deploy`. Can be accessed via:
+
+`$ ssh deploy@159.203.41.223`
 
 
 ADDING A NEW APP
@@ -27,3 +31,4 @@ CURRENT PET INDEX
 port   | site
 -------|-----------------------
 3000   | wordswithstrangers.ca
+3001   | panther.audio

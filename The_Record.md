@@ -71,9 +71,11 @@ B. Adding new pet projects to the server
 ### B. Adding new pet projects to the server
 
   1) Set up a reverse proxy with nginx
-      Make a file for the new domain (eg. nano /etc/nginx/conf.d/requestkittens.com.conf)
+      Make a file for the new domain (eg. nano /etc/nginx/sites-available/requestkittens.com.conf)
       This tells nginx to forward all traffic received for that domain to
       the port specified.
+      Create a symlink in sites-enabled:
+      $ sudo ln -s sites-available/aracari.ca sites-enabled/aracari.ca
 
   2) Get a database plan
       eg. Login to mongolab, create a new mongodb.
@@ -104,6 +106,8 @@ B. Adding new pet projects to the server
 
   6) Set up logging
 
-  OPTIONAL STEPS:
+  7) Set up HTTPS. Surprisingly straightforward! Follow this guide:
+  https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04
+  (Differences: use the site in question in /sites-available instead of `default`. See the config in sites-available/aracari.ca for example.)
 
-  - If using Redux & Redux DevTools, we'll need to [remove them from production](https://github.com/gaearon/redux-devtools)
+  OPTIONAL STEPS:

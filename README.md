@@ -32,3 +32,4 @@ port   | site
 -------|-----------------------
 3000   | wordswithstrangers.ca
 3001   | panther.audio
+3002   | aracari.ca
